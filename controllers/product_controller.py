@@ -68,3 +68,14 @@ def atualizar_produto(id):
         
     db.session.commit()
     return jsonify(produto.to_dict()), 200
+
+def deletar_produto(id):
+    produto = Produto.query.get(id)
+
+    if not produto:
+        return jsonify({"error": "Produto não encontrado."}), 404
+    
+    db.session.delete(produto)
+    db.session.commit()
+
+    return jsonify({"message": "Produto deletado com sucesso."}), 200
